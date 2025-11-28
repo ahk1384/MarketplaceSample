@@ -1,0 +1,32 @@
+<div *ngIf="users.length > 0" class="user-list" >
+  <ul class="user-list__list">
+    <ng-container *ngFor="let user of users; trackBy: trackByUserId">
+    <li
+      *ngIf="renamingUserId !== user.id"
+      [ngClass]="{ selected: user.id === activeUserId }"
+      (click)="onUserClick(user.id)"
+      class="user-list__item"
+    >
+      <span
+        *ngIf="renamingUserId !== user.id"
+        class="text"
+      >{{ user.username }}</span>
+
+
+      <ng-template #settingsIconTemplate>
+        <img src="assets/icons/setting.svg" alt="Setting" class="icon"/>
+      </ng-template>
+    </li>
+      <input
+        *ngIf="renamingUserId === user.id"
+        type="text"
+        [(ngModel)]="user.username"
+        (keyup.enter)="confirmRenaming(user)"
+        (blur)="confirmRenaming(user)"
+        (keyup.escape)="cancelRenaming(user.id)"
+        class="rename-input"
+        autofocus
+      />
+    </ng-container>
+  </ul>
+</div>
