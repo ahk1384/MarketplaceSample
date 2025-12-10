@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './item-section.component.css'
 })
 export class ItemSectionComponent {
-
+  name = 'Amir';
+  age = 20;
+  changeName() {
+    this.name = "Ali";
+  }
 }
