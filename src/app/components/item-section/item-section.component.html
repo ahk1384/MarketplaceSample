@@ -4,7 +4,7 @@
     <div class="user-info">
       <div class="avatar">{{ getName()?.charAt(0)?.toUpperCase() }}</div>
       <h3 class="name">{{ getName() }}</h3>
-      <h3 class="credit">Credit : {{getCredit()}}</h3>
+      <h3 class="credit">Credit : {{ getCredit() | number:'1.1-1' }}</h3>
     </div>
     <nav class="sidebar-menu">
       <button class="user-panel-btn" (click)="userPage()">
@@ -41,4 +41,3 @@
 <footer *ngIf="result">
   <p class="result-message">{{ result }}</p>
 </footer>
-

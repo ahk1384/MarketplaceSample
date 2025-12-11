@@ -51,20 +51,20 @@ export class UserListComponent {
   protected startRenaming(user: User): void {
     this.originalName = user.password;
     this.renameAction.emit({
-      id: user.id,
+      id : user.id,
       status: PasswordChangedStatus.STARTED
     });
   }
 
   protected confirmRenaming(user: User): void {
     this.renameAction.emit({
-      id: user.id,
+      id : user.id,
       newPassword: user.password,
       status: PasswordChangedStatus.CONFIRMED
     });
   }
 
-  protected cancelRenaming(userId: string): void {
+  protected cancelRenaming(userId: number): void {
     this.renameAction.emit({
       id: userId,
       status: PasswordChangedStatus.CANCELLED
@@ -72,7 +72,7 @@ export class UserListComponent {
   }
 
   protected trackByUserId(index: number, user: User): string {
-    return user.id;
+    return user.id.toString();
   }
 
 }

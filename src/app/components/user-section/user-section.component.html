@@ -5,7 +5,7 @@
       <div class="avatar">{{ getName()?.charAt(0)?.toUpperCase() }}</div>
       <h3>{{ getName() }}</h3>
       <p>{{ getEmail() }}</p>
-      <p class="credit">Credit: {{ getCredit() ?? 0 }}</p>
+      <p class="credit">Credit: {{ getCredit() | number:'1.1-1' }}</p>
     </div>
     <nav class="sidebar-menu">
       <button class="dashboard" (click)="ItemPage()" >
@@ -46,7 +46,7 @@
         </div>
         <div class="profile-row">
           <label>Credit Balance:</label>
-          <span class="credit-value">{{ getCredit() ?? 0 }}</span>
+          <span class="credit-value">{{ getCredit() | number:'1.1-1' }}</span>
         </div>
       </div>
     </div>
@@ -67,4 +67,3 @@
     </div>
   </div>
 </div>
-
