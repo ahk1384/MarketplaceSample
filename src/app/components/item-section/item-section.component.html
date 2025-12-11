@@ -1,20 +1,44 @@
-<div class="item-section">
-  <div class="items-container">
-    <div *ngFor="let item of items" class="item-card">
-      <p>Item Name: {{item.name}}</p>
-      <p>Price: {{item.price | currency}}</p>
-      <button (click)="BuyItem(item)">Buy</button>
+<div class="user-page">
+  <!-- Left Sidebar -->
+  <div class="sidebar">
+    <div class="user-info">
+      <div class="avatar">{{ getName()?.charAt(0)?.toUpperCase() }}</div>
+      <h3 class="name">{{ getName() }}</h3>
+      <h3 class="credit">Credit : {{getCredit()}}</h3>
+    </div>
+    <nav class="sidebar-menu">
+      <button class="user-panel-btn" (click)="userPage()">
+        <span>👤</span> User Panel
+      </button>
+      <button class="logout-btn" (click)="logout()">
+        <span>🚪</span> Logout
+      </button>
+    </nav>
+    <div class="add-form">
+      <h4>Add New Item</h4>
+      <input style="color: #1e293b" type="text" placeholder="Item Name" #itemName />
+      <input style="color: #1e293b" type="number" placeholder="Item Price" #itemPrice />
+      <button class="add-btn" (click)="AddItem(itemName.value, +itemPrice.value)">Add Item</button>
     </div>
   </div>
 
-  <div class="add-form">
-    <input type="text" placeholder="Item Name" #itemName />
-    <input type="number" placeholder="Item Price" #itemPrice />
-    <button (click)="AddItem(itemName.value, +itemPrice.value)">Add Item</button>
+  <!-- Right Content Area -->
+  <div class="content">
+    <div class="panel">
+      <h2>Available Items</h2>
+      <div class="items-container">
+        <div *ngFor="let item of items" class="item-card">
+          <h4 class="item-name">{{ item.name }}</h4>
+          <p class="item-price">{{ item.price | currency }}</p>
+          <button class="buy-btn" (click)="BuyItem(item)">Buy</button>
+        </div>
+      </div>
+      <p *ngIf="!items || items.length === 0" class="empty-message">No items available</p>
+    </div>
   </div>
-
-  <p class="result-message" *ngIf="result">{{result}}</p>
-
-  <button class="user-panel-btn" (click)="userPage()">User Panel</button>
-  <button class="logout-btn" (click)="logout()">Logout</button>
 </div>
+
+<footer *ngIf="result">
+  <p class="result-message">{{ result }}</p>
+</footer>
+

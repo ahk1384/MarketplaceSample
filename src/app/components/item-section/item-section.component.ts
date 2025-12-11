@@ -3,6 +3,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Item } from "../../models/item.model";
 import { Router } from "@angular/router";
 import { ActiveUserService } from '../user-section/service/active-user/active-user.service';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-item-section',
@@ -15,8 +16,19 @@ import { ActiveUserService } from '../user-section/service/active-user/active-us
   styleUrl: './item-section.component.css'
 })
 export class ItemSectionComponent {
-  constructor(private activeUserService: ActiveUserService, private router: Router) {}
-
+  constructor(private activeUserService: ActiveUserService, private router: Router,
+  private user : UserService) { }
+  public getName(): string | null {
+    const user = this.activeUserService.currentUser;
+    return user ? user.name : null;
+  }
+  public getCredit(): number | null {
+    const user = this.activeUserService.currentUser;
+    if (user) {
+      return user.credit ?? null;
+    }
+    return null;
+  }
   public logout(): void {
     this.activeUserService.clearUser();
     this.router.navigate(['/login']);
@@ -31,13 +43,32 @@ export class ItemSectionComponent {
   ];
   result: string = '';
   public BuyItem(item: Item): void {
-    if (this.items.includes(item)) {
-      this.RemoveItem(item);
-      console.log(`Purchased: ${item.name} for $${item.price}`);
-      this.result = `Purchased: ${item.name} for $${item.price}`;
-    } else {
-      this.result = 'Item not found in the list.';
+    const currentUser = this.activeUserService.currentUser;
+
+    // Check if user is logged in
+    if (!currentUser) {
+      this.result = 'No user logged in.';
+      return;
     }
+
+    // Check if user has enough credit
+    if (typeof currentUser.credit !== 'number' || currentUser.credit < item.price) {
+      this.result = 'Insufficient credit.';
+      return;
+    }
+
+    // Decrease credit and round to 2 decimals
+    currentUser.credit = Math.round((currentUser.credit - item.price) * 100) / 100;
+
+    // Update the active user service (this also updates localStorage)
+    this.activeUserService.setUser(currentUser);
+
+    // Also update in the users list
+    this.user.updateUserCredit(currentUser.id, currentUser.credit);
+
+    // Remove the item from the list
+    this.RemoveItem(item);
+    this.result = `Purchased: ${item.name} for $${item.price}. Remaining credit: $${currentUser.credit}`;
   }
 
   public RemoveItem(item: Item): void {
@@ -50,6 +81,10 @@ export class ItemSectionComponent {
     }
   }
   public AddItem(name:string,price :number ,): void {
+    if (!name || price <= 0) {
+      this.result = 'Invalid item name or price.';
+      return;
+    }
     const newItem: Item = {
       id: (this.items.length + 1).toString(),
       name: name,

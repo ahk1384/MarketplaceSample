@@ -83,6 +83,10 @@
   font-weight: 600;
 }
 
+.sidebar-menu button.dashboard {
+  font-weight: 600;
+}
+
 .sidebar-menu button span {
   font-size: 20px;
 }

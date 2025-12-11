@@ -68,6 +68,9 @@ export class UserSectionComponent {
   public showAddCredit(): void {
     this.activePanel = 'addCredit';
   }
+  public ItemPage() : void{
+    this.router.navigate(['/dashboard']);
+  }
 
   // Called when name is changed successfully
   public onNameChanged(): void {

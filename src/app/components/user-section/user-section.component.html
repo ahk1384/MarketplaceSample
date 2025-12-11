@@ -8,6 +8,9 @@
       <p class="credit">Credit: {{ getCredit() ?? 0 }}</p>
     </div>
     <nav class="sidebar-menu">
+      <button class="dashboard" (click)="ItemPage()" >
+        <span>🛒</span> Dashboard
+      </button>
       <button [class.active]="activePanel === 'profile'" (click)="showProfile()">
         <span>👤</span> Profile
       </button>
@@ -20,6 +23,7 @@
       <button [class.active]="activePanel === 'addCredit'" (click)="showAddCredit()">
         <span>💰</span> Add Credit
       </button>
+
       <button class="logout-btn" (click)="logout()">
         <span>🚪</span> Logout
       </button>

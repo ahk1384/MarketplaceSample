@@ -38,7 +38,7 @@ export class AddCreditComponent implements OnInit {
       return;
     }
 
-    if (creditAmount <= 0) {
+    if ((creditAmount <= 0) || isNaN(creditAmount)) {
       alert("Please enter a valid credit amount greater than 0.");
       return;
     }

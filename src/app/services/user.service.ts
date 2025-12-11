@@ -60,6 +60,20 @@ export class UserService {
       return { success: false, newCredit: 0 };
     }
   }
+
+  // Update user credit directly (for purchases)
+  updateUserCredit(userId: number, newCredit: number): boolean {
+    const users = this.getUsers();
+    const userIndex = users.findIndex(u => u.id === userId);
+
+    if (userIndex !== -1) {
+      users[userIndex].credit = newCredit;
+      this.saveUsers(users);
+      return true;
+    }
+    return false;
+  }
+
   // Signup - add new user
   signup(name: string, email: string, password: string , credit :number): { success: boolean; message: string } {
     if (this.emailExists(email)) {
