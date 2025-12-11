@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import {environment} from '../../environments/environments';
-import {ApiError} from './models/api-error';
+import { environment } from '../../environments/environments';
+import { ApiError } from './models/api-error';
 
 @Injectable()
 export class BaseApiService {
@@ -41,4 +41,3 @@ export class BaseApiService {
     return throwError(() => new ApiError(errorMessage, error.status));
   }
 }
-

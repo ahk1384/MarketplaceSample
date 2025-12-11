@@ -19,33 +19,30 @@ export class SignupComponent implements OnInit {
   error = '';
 
   constructor(private userService: UserService, private router: Router) {}
+
   ngOnInit() {
     if (this.userService.isLoggedIn()) {
       this.router.navigate(['/dashboard']);
     }
   }
+
   onSignup() {
-    // Check all fields are filled
     if (!this.name || !this.email || !this.password || !this.confirmPassword) {
       this.error = 'Please fill in all fields';
       return;
     }
 
-
-    // Check passwords match
     if (this.password !== this.confirmPassword) {
       this.error = 'Passwords do not match';
       return;
     }
 
-    // Check password length
     if (this.password.length < 6) {
       this.error = 'Password must be at least 6 characters';
       return;
     }
 
-    // Try to signup using the service
-    const result = this.userService.signup(this.name, this.email, this.password,0);
+    const result = this.userService.signup(this.name, this.email, this.password, 0);
 
     if (result.success) {
       this.error = '';

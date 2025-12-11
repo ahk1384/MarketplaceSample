@@ -6,6 +6,6 @@ export enum NameChangedStatus {
 
 export interface NameChanged {
   id: number;
-  newName : string;
+  newName: string;
   status: NameChangedStatus;
 }

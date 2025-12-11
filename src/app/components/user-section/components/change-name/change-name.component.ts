@@ -50,7 +50,6 @@ export class ChangeNameComponent implements OnInit {
     const result = this.userService.changeName(nameChange);
 
     if (result.success) {
-      // Update the ActiveUserService with new name
       this.activeUserService.setUser({
         ...user,
         name: nameChange.newName

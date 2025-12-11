@@ -52,7 +52,6 @@ export class AddCreditComponent implements OnInit {
     const result = this.userService.addCredit(credit);
 
     if (result.success) {
-      // Update the ActiveUserService with new credit
       this.activeUserService.setUser({
         ...user,
         credit: result.newCredit

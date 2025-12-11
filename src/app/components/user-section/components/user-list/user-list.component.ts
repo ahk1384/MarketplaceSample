@@ -40,14 +40,6 @@ export class UserListComponent {
   ) {
   }
 
-  // public ngOnInit(): void {
-  //   this._activeUserService.activeUserId$
-  //     .pipe(takeUntilDestroyed(this._destroyRef))
-  //     .subscribe((userId: string) => {
-  //       this.activeUserId = userId;
-  //     });
-  // }
-
   protected onUserClick(userId: string): void {
     this.userSelected.emit(userId);
   }

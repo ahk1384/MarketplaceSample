@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // If already logged in, redirect to dashboard
     if (this.activeUserService.isLoggedIn()) {
       this.router.navigate(['/dashboard']);
     }
@@ -36,19 +35,16 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    // Try to login using the service
     const result = this.userService.login(this.email, this.password);
 
     if (result.success && result.user) {
       this.error = '';
-      // Store current user in ActiveUserService
       this.activeUserService.setUser({
         id: result.user.id,
         name: result.user.name,
         email: result.user.email,
-        credit : result.user.credit
+        credit: result.user.credit
       });
-      // Navigate to dashboard after successful login
       this.router.navigate(['/dashboard']);
     } else {
       this.error = result.message;

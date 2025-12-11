@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {BaseApiService} from '../base-api/base-api.service';
-import {User} from "../../models/user.model";
+import { BaseApiService } from '../base-api/base-api.service';
+import { User } from "../../models/user.model";
 
 
 @Injectable()

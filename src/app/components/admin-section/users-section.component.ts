@@ -1,10 +1,10 @@
-import {Component, DestroyRef, EventEmitter, Output} from '@angular/core';
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {PasswordChanged, PasswordChangedStatus} from "../user-section/models/password-changed.model";
-import {User} from "../../models/user.model";
-import {UserApiService} from "../../services/user-api/user-api.service";
-import {NzMessageService} from 'ng-zorro-antd/message';
-import {UserListComponent} from "../user-section/components/user-list/user-list.component";
+import { Component, DestroyRef, EventEmitter, Output } from '@angular/core';
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { PasswordChanged, PasswordChangedStatus } from "../user-section/models/password-changed.model";
+import { User } from "../../models/user.model";
+import { UserApiService } from "../../services/user-api/user-api.service";
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { UserListComponent } from "../user-section/components/user-list/user-list.component";
 
 @Component({
   selector: 'app-user-list',
@@ -29,13 +29,11 @@ export class UsersSectionComponent {
   protected isDeleteModalVisible: boolean = false;
   protected userToDelete: string | null = null;
 
-
   public constructor(
     private readonly _userApiService: UserApiService,
     private readonly _message: NzMessageService,
     private readonly _destroyRef: DestroyRef
-  ) {
-  }
+  ) {}
 
   public ngOnInit(): void {
     this._userApiService.getUsers()
@@ -65,7 +63,6 @@ export class UsersSectionComponent {
           this.isDeleteModalVisible = false;
           this._message.success('کاربر با موفقیت حذف شد');
           this.userDeleted.emit();
-
         },
         error: (err) => {
           console.error('Delete User error:', err);
@@ -75,7 +72,6 @@ export class UsersSectionComponent {
         }
       });
     }
-
   }
 
   protected handleDeleteCancel(): void {
@@ -90,7 +86,7 @@ export class UsersSectionComponent {
         break;
       case PasswordChangedStatus.CONFIRMED:
         if (event.newPassword) {
-          this._userApiService.updateUserPassword({username: event.id, password: event.newPassword});
+          this._userApiService.updateUserPassword({ username: event.id, password: event.newPassword });
         }
         this.renamingUserId = null;
         break;
@@ -99,6 +95,4 @@ export class UsersSectionComponent {
         break;
     }
   }
-
-  protected readonly name = name;
 }

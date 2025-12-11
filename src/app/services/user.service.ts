@@ -18,18 +18,15 @@ export class UserService {
   private USERS_KEY = 'app_users';
   private CURRENT_USER_KEY = 'current_user';
 
-  // Get all users from localStorage
   getUsers(): User[] {
     const data = localStorage.getItem(this.USERS_KEY);
     return data ? JSON.parse(data) : [];
   }
 
-  // Save users to localStorage
   private saveUsers(users: User[]): void {
     localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
   }
 
-  // Check if email already exists
   emailExists(email: string): boolean {
     const users = this.getUsers();
     return users.some(u => u.email.toLowerCase() === email.toLowerCase());
@@ -47,7 +44,6 @@ export class UserService {
       this.saveUsers(users);
       credit.status = AddCreditStatus.CONFIRMED;
 
-      // Also update the current user in localStorage
       const currentUser = this.getCurrentUser();
       if (currentUser && currentUser.id === credit.id) {
         const updatedUser = { ...currentUser, credit: users[userIndex].credit };
@@ -61,7 +57,6 @@ export class UserService {
     }
   }
 
-  // Update user credit directly (for purchases)
   updateUserCredit(userId: number, newCredit: number): boolean {
     const users = this.getUsers();
     const userIndex = users.findIndex(u => u.id === userId);
@@ -74,8 +69,7 @@ export class UserService {
     return false;
   }
 
-  // Signup - add new user
-  signup(name: string, email: string, password: string , credit :number): { success: boolean; message: string } {
+  signup(name: string, email: string, password: string, credit: number): { success: boolean; message: string } {
     if (this.emailExists(email)) {
       return { success: false, message: 'Email already exists' };
     }
@@ -95,7 +89,7 @@ export class UserService {
     return { success: true, message: 'Signup successful' };
   }
 
-  public chagnePassword(password :PasswordChanged): { success: boolean; message: string } {
+  public chagnePassword(password: PasswordChanged): { success: boolean; message: string } {
     const users = this.getUsers();
     const userIndex = users.findIndex(u => u.id === password.id);
 
@@ -105,22 +99,21 @@ export class UserService {
     }
 
     if (users[userIndex].password !== password.oldPassword) {
-      password.status =  PasswordChangedStatus.CANCELLED;
+      password.status = PasswordChangedStatus.CANCELLED;
       return { success: false, message: 'Old password is incorrect' };
     }
 
     if (password.newPassword == null) {
-      password.status =  PasswordChangedStatus.CANCELLED;
+      password.status = PasswordChangedStatus.CANCELLED;
       return { success: false, message: 'Password is incorrect' };
-
-    }else{
-    users[userIndex].password = password.newPassword;
-    this.saveUsers(users);
-    password.status =  PasswordChangedStatus.CONFIRMED;
-    return { success: true, message: 'Password changed successfully' };
+    } else {
+      users[userIndex].password = password.newPassword;
+      this.saveUsers(users);
+      password.status = PasswordChangedStatus.CONFIRMED;
+      return { success: true, message: 'Password changed successfully' };
     }
   }
-  // Login - check credentials
+
   login(email: string, password: string): { success: boolean, message: string, user?: User } {
     const users = this.getUsers();
     const user = users.find(
@@ -128,7 +121,6 @@ export class UserService {
     );
 
     if (user) {
-      // Save current user (including credit, without password)
       const safeUser = { id: user.id, name: user.name, email: user.email, credit: user.credit };
       localStorage.setItem(this.CURRENT_USER_KEY, JSON.stringify(safeUser));
       return { success: true, message: 'Login successful', user };
@@ -137,19 +129,15 @@ export class UserService {
     return { success: false, message: 'Invalid email or password' };
   }
 
-  // Get current logged-in user
   getCurrentUser(): Omit<User, 'password'> | null {
     const data = localStorage.getItem(this.CURRENT_USER_KEY);
     return data ? JSON.parse(data) : null;
   }
 
-  // Logout
   logout(): void {
     localStorage.removeItem(this.CURRENT_USER_KEY);
   }
 
-  // Check if user is logged in
-  // Change user name
   public changeName(nameChange: NameChanged): { success: boolean; message: string } {
     const users = this.getUsers();
     const userIndex = users.findIndex(u => u.id === nameChange.id);
@@ -163,7 +151,6 @@ export class UserService {
     this.saveUsers(users);
     nameChange.status = NameChangedStatus.CONFIRMED;
 
-    // Also update the current user in localStorage
     const currentUser = this.getCurrentUser();
     if (currentUser && currentUser.id === nameChange.id) {
       const updatedUser = { ...currentUser, name: nameChange.newName };

@@ -20,10 +20,8 @@ import { AddCreditComponent } from './components/add-credit/add-credit.component
   styleUrl: './user-section.component.css'
 })
 export class UserSectionComponent {
-  // Track which panel is active
   activePanel: 'profile' | 'changeName' | 'changePassword' | 'addCredit' = 'profile';
 
-  // Only ONE constructor with all dependencies
   constructor(
     private activeUserService: ActiveUserService,
     private userService: UserService,
@@ -68,21 +66,19 @@ export class UserSectionComponent {
   public showAddCredit(): void {
     this.activePanel = 'addCredit';
   }
-  public ItemPage() : void{
+
+  public ItemPage(): void {
     this.router.navigate(['/dashboard']);
   }
 
-  // Called when name is changed successfully
   public onNameChanged(): void {
     this.activePanel = 'profile';
   }
 
-  // Called when password is changed successfully
   public onPasswordChanged(): void {
     this.activePanel = 'profile';
   }
 
-  // Called when credit is added successfully
   public onCreditAdded(): void {
     this.activePanel = 'profile';
   }

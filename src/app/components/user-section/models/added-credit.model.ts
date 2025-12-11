@@ -6,6 +6,6 @@ export enum AddCreditStatus {
 
 export interface AddedCredit {
   id: number;
-  amount : number;
+  amount: number;
   status: AddCreditStatus;
 }
