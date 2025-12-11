@@ -5,7 +5,7 @@ import { ActiveUserService } from './service/active-user/active-user.service';
 import { UserService } from "../../services/user.service";
 import { ChangeNameComponent } from './components/change-name/change-name.component';
 import { PasswordChangeComponent } from './components/password-change/password-change.component';
-import { AddCreditComponent } from './components/AddCredit/add-credit.component';
+import { AddCreditComponent } from './components/add-credit/add-credit.component';
 
 @Component({
   selector: 'app-user-section',

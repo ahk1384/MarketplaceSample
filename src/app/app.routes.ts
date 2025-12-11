@@ -4,7 +4,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { ItemSectionComponent } from './components/item-section/item-section.component';
 import { UserSectionComponent } from "./components/user-section/user-section.component";
 import { PasswordChangeComponent } from "./components/user-section/components/password-change/password-change.component";
-import { AddCreditComponent } from "./components/user-section/components/AddCredit/add-credit.component";
+import { AddCreditComponent } from "./components/user-section/components/add-credit/add-credit.component";
 import { ChangeNameComponent } from "./components/user-section/components/change-name/change-name.component";
 import { AuthGuard } from './auth/auth.guard';
 
