@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-  <p>hi</p>
-  <div>
+<div class="user-section">
+  <div class="user-info">
     <h3>{{getName()}}</h3>
-    <p>{{getEmail()}}</p>
+    <p>Email: {{getEmail()}}</p>
+    <p>Credit: {{getCredit()}}</p>
   </div>
-  <div>
-    <button> Change Name </button>
-    <button> Change Password</button>
-    <button> Add Credit </button>
-    <button>logout</button>
+  <div class="user-actions">
+    <button (click)="changeName()">Change Name</button>
+    <button (click)="changePassword()">Change Password</button>
+    <button (click)="addCredit()">Add Credit</button>
+    <button (click)="logout()">Logout</button>
   </div>
-</body>
-</html>
+</div>

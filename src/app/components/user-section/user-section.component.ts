@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
-import {User } from "../../models/user.model";
+import { CommonModule } from '@angular/common';
 import { Router } from "@angular/router";
-import { ActiveUserService } from '../user-section/service/active-user/active-user.service';
+import { ActiveUserService } from './service/active-user/active-user.service';
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-user-section',
@@ -14,18 +14,46 @@ import { ActiveUserService } from '../user-section/service/active-user/active-us
   styleUrl: './user-section.component.css'
 })
 export class UserSectionComponent {
-  constructor(private activeUserService: ActiveUserService, private router: Router) {}
+  // Only ONE constructor with all dependencies
+  constructor(
+    private activeUserService: ActiveUserService,
+    private userService: UserService,
+    private router: Router
+  ) {}
+
   public logout(): void {
     this.activeUserService.clearUser();
     this.router.navigate(['/login']);
   }
+
   public getName(): string | null {
     const user = this.activeUserService.currentUser;
     return user ? user.name : null;
   }
+
   public getEmail(): string | null {
     const user = this.activeUserService.currentUser;
     return user ? user.email : null;
   }
 
+  public getCredit(): number | null {
+    const user = this.activeUserService.currentUser;
+    if (user) {
+      console.log("User credit: " + user.credit);
+      return user.credit ?? null;
+    }
+    return null;
+  }
+
+  public changePassword(): void {
+    this.router.navigate(['/change-password']);
+  }
+
+  public addCredit(): void {
+    this.router.navigate(['/add-credit']);
+  }
+
+  public changeName(): void {
+    this.router.navigate(['/change-name']);
+  }
 }

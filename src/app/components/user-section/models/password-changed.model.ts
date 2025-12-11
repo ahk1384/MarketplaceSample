@@ -5,7 +5,8 @@ export enum PasswordChangedStatus {
 }
 
 export interface PasswordChanged {
-  id: string;
+  id: number;
+  oldPassword?: string;
   newPassword?: string;
   status: PasswordChangedStatus;
 }

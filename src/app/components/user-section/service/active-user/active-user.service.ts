@@ -1,10 +1,14 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {PasswordChanged, PasswordChangedStatus} from "../../models/password-changed.model";
 
 export interface ActiveUser {
   id: number;
   name: string;
   email: string;
+  credit?: number;  // Make optional with correct type
+  password?: string;
+  token?: string;
 }
 
 @Injectable({
@@ -42,7 +46,6 @@ export class ActiveUserService {
   isLoggedIn(): boolean {
     return this.currentUser$.value !== null;
   }
-
   // Get stored user from localStorage
   private getStoredUser(): ActiveUser | null {
     const data = localStorage.getItem(this.CURRENT_USER_KEY);

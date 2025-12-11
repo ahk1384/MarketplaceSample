@@ -45,7 +45,8 @@ export class LoginComponent implements OnInit {
       this.activeUserService.setUser({
         id: result.user.id,
         name: result.user.name,
-        email: result.user.email
+        email: result.user.email,
+        credit : result.user.credit
       });
       // Navigate to dashboard after successful login
       this.router.navigate(['/dashboard']);

@@ -45,7 +45,7 @@ export class SignupComponent implements OnInit {
     }
 
     // Try to signup using the service
-    const result = this.userService.signup(this.name, this.email, this.password);
+    const result = this.userService.signup(this.name, this.email, this.password,0);
 
     if (result.success) {
       this.error = '';
