@@ -1,5 +1,16 @@
 <div class="item-section">
-  <p>userName : {{name}}</p>
-  <p>Age : {{age}}</p>
-  <button (click)="changeName()">Change</button>
+  <div class="items-container">
+    <div *ngFor="let item of items" class="item-card">
+      <p>Item Name : {{item.name}}</p>
+      <p>Price : {{item.price | currency}}</p>
+      <button (click)="BuyItem(item)">Buy</button>
+    </div>
+  </div>
+  <div class="add-form">
+    <input type="text" placeholder="Item Name" #itemName />
+    <input type="number" placeholder="Item Price" #itemPrice />
+    <button (click)="AddItem(itemName.value, +itemPrice.value)"> Add </button>
+  </div>
+  <h1>{{result}}</h1>
+  <button class="add-form" style="margin-top: 3rem" (click)="userPage()">User Panel</button>
 </div>

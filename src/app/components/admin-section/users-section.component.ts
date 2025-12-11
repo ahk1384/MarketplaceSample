@@ -1,10 +1,10 @@
 import {Component, DestroyRef, EventEmitter, Output} from '@angular/core';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {PasswordChanged, PasswordChangedStatus} from "../user-list/models/password-changed.model";
+import {PasswordChanged, PasswordChangedStatus} from "../user-section/models/password-changed.model";
 import {User} from "../../models/user.model";
 import {UserApiService} from "../../services/user-api/user-api.service";
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {UserListComponent} from "./components/user-list/user-list.component";
+import {UserListComponent} from "../user-section/components/user-list/user-list.component";
 
 @Component({
   selector: 'app-user-list',
@@ -99,4 +99,6 @@ export class UsersSectionComponent {
         break;
     }
   }
+
+  protected readonly name = name;
 }

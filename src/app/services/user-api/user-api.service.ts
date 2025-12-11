@@ -14,6 +14,12 @@ export class UserApiService {
     return this.apiService.get<User[]>(`${this.basePath}/get_users`);
   }
 
+  public AddUser(payload: {
+    username: string;
+    password: string;
+  }): Observable<void> {
+    return this.apiService.post(`${this.basePath}/add_user`, payload);
+  }
   public updateUserPassword(payload: {
     username: string;
     password: string;

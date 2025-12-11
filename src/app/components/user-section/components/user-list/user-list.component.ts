@@ -13,7 +13,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
   styleUrl: './user-list.component.scss',
   standalone: true,
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
 
   @Input()
   public users: User[] = [];
@@ -40,13 +40,13 @@ export class UserListComponent implements OnInit {
   ) {
   }
 
-  public ngOnInit(): void {
-    this._activeUserService.activeUserId$
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe((userId) => {
-        this.activeUserId = userId;
-      });
-  }
+  // public ngOnInit(): void {
+  //   this._activeUserService.activeUserId$
+  //     .pipe(takeUntilDestroyed(this._destroyRef))
+  //     .subscribe((userId: string) => {
+  //       this.activeUserId = userId;
+  //     });
+  // }
 
   protected onUserClick(userId: string): void {
     this.userSelected.emit(userId);
