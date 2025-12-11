@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { UserService } from "../../../../services/user.service";
 import { Router } from "@angular/router";
@@ -6,13 +6,15 @@ import { ActiveUserService } from "../../service/active-user/active-user.service
 import { NameChanged, NameChangedStatus } from "../../models/name-changed.model";
 
 @Component({
-  selector: 'user-change-name',
+  selector: 'app-change-name',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './change-name.component.html',
   styleUrl: './change-name.component.css'
 })
 export class ChangeNameComponent implements OnInit {
+  @Output() nameChanged = new EventEmitter<void>();
+
   constructor(
     private userService: UserService,
     private activeUserService: ActiveUserService,
@@ -55,10 +57,10 @@ export class ChangeNameComponent implements OnInit {
       });
 
       alert("Name changed successfully!");
+      this.nameChanged.emit();
       this.router.navigate(['/user']);
     } else {
       alert("Failed to change name: " + result.message);
     }
   }
 }
-

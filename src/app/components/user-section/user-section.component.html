@@ -1,13 +1,66 @@
-<div class="user-section">
-  <div class="user-info">
-    <h3>{{getName()}}</h3>
-    <p>Email: {{getEmail()}}</p>
-    <p>Credit: {{getCredit()}}</p>
+<div class="user-page">
+  <!-- Left Sidebar -->
+  <div class="sidebar">
+    <div class="user-info">
+      <div class="avatar">{{ getName()?.charAt(0)?.toUpperCase() }}</div>
+      <h3>{{ getName() }}</h3>
+      <p>{{ getEmail() }}</p>
+      <p class="credit">Credit: {{ getCredit() ?? 0 }}</p>
+    </div>
+    <nav class="sidebar-menu">
+      <button [class.active]="activePanel === 'profile'" (click)="showProfile()">
+        <span>👤</span> Profile
+      </button>
+      <button [class.active]="activePanel === 'changeName'" (click)="showChangeName()">
+        <span>✏️</span> Change Name
+      </button>
+      <button [class.active]="activePanel === 'changePassword'" (click)="showChangePassword()">
+        <span>🔒</span> Change Password
+      </button>
+      <button [class.active]="activePanel === 'addCredit'" (click)="showAddCredit()">
+        <span>💰</span> Add Credit
+      </button>
+      <button class="logout-btn" (click)="logout()">
+        <span>🚪</span> Logout
+      </button>
+    </nav>
   </div>
-  <div class="user-actions">
-    <button (click)="changeName()">Change Name</button>
-    <button (click)="changePassword()">Change Password</button>
-    <button (click)="addCredit()">Add Credit</button>
-    <button (click)="logout()">Logout</button>
+
+  <!-- Right Content Area -->
+  <div class="content">
+    <!-- Profile Panel -->
+    <div *ngIf="activePanel === 'profile'" class="panel">
+      <h2>My Profile</h2>
+      <div class="profile-card">
+        <div class="profile-row">
+          <label>Name:</label>
+          <span>{{ getName() }}</span>
+        </div>
+        <div class="profile-row">
+          <label>Email:</label>
+          <span>{{ getEmail() }}</span>
+        </div>
+        <div class="profile-row">
+          <label>Credit Balance:</label>
+          <span class="credit-value">{{ getCredit() ?? 0 }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Change Name Panel -->
+    <div *ngIf="activePanel === 'changeName'" class="panel">
+      <app-change-name (nameChanged)="onNameChanged()"></app-change-name>
+    </div>
+
+    <!-- Change Password Panel -->
+    <div *ngIf="activePanel === 'changePassword'" class="panel">
+      <app-password-change (passwordChanged)="onPasswordChanged()"></app-password-change>
+    </div>
+
+    <!-- Add Credit Panel -->
+    <div *ngIf="activePanel === 'addCredit'" class="panel">
+      <app-add-credit (creditAdded)="onCreditAdded()"></app-add-credit>
+    </div>
   </div>
 </div>
+

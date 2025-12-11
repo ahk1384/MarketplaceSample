@@ -1,12 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-  <h5>Add Credit</h5>
-  <input type="number" placeholder="Enter amount" #amount/>
-  <button (click)="AddCredit(amount.valueAsNumber)">Submit</button>
-</body>
-</html>
+<div class="form-card">
+  <h2>Add Credit</h2>
+
+  <div class="form-group">
+    <label for="amount">Credit Amount</label>
+    <input
+      type="number"
+      id="amount"
+      #amount
+      placeholder="Enter amount"
+      min="1"
+    />
+  </div>
+
+  <button class="submit-btn" (click)="AddCredit(amount.valueAsNumber)">Add Credit</button>
+</div>
+

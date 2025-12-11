@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, Output, EventEmitter} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {AddCreditStatus, AddedCredit} from "../../models/added-credit.model";
 import {UserService} from "../../../../services/user.service";
@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {ActiveUserService} from "../../service/active-user/active-user.service";
 
 @Component({
-  selector: 'user-add-credit',
+  selector: 'app-add-credit',
   standalone: true,
   imports: [
     CommonModule,
@@ -15,6 +15,8 @@ import {ActiveUserService} from "../../service/active-user/active-user.service";
   styleUrl: './add-credit.component.css'
 })
 export class AddCreditComponent implements OnInit {
+  @Output() creditAdded = new EventEmitter<void>();
+
   constructor(
     private userService: UserService,
     private activeUserService: ActiveUserService,
@@ -57,6 +59,7 @@ export class AddCreditComponent implements OnInit {
       });
 
       alert("Credit added successfully! New balance: " + result.newCredit);
+      this.creditAdded.emit();
       this.router.navigate(['/user']);
     } else {
       alert("Failed to add credit. Status: " + credit.status);

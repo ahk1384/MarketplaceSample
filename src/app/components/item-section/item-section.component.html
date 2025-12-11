@@ -1,16 +1,20 @@
 <div class="item-section">
   <div class="items-container">
     <div *ngFor="let item of items" class="item-card">
-      <p>Item Name : {{item.name}}</p>
-      <p>Price : {{item.price | currency}}</p>
+      <p>Item Name: {{item.name}}</p>
+      <p>Price: {{item.price | currency}}</p>
       <button (click)="BuyItem(item)">Buy</button>
     </div>
   </div>
+
   <div class="add-form">
     <input type="text" placeholder="Item Name" #itemName />
     <input type="number" placeholder="Item Price" #itemPrice />
-    <button (click)="AddItem(itemName.value, +itemPrice.value)"> Add </button>
+    <button (click)="AddItem(itemName.value, +itemPrice.value)">Add Item</button>
   </div>
-  <h1>{{result}}</h1>
-  <button class="add-form" style="margin-top: 3rem" (click)="userPage()">User Panel</button>
+
+  <p class="result-message" *ngIf="result">{{result}}</p>
+
+  <button class="user-panel-btn" (click)="userPage()">User Panel</button>
+  <button class="logout-btn" (click)="logout()">Logout</button>
 </div>

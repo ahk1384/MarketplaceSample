@@ -1,18 +1,16 @@
-<div class="change-name-container">
-  <div class="change-name-card">
-    <h2>Change Name</h2>
+<div class="form-card">
+  <h2>Change Name</h2>
 
-    <div class="form-group">
-      <label for="newName">New Name</label>
-      <input
-        type="text"
-        id="newName"
-        #newName
-        placeholder="Enter your new name"
-      />
-    </div>
-
-    <button class="submit-btn" (click)="changeName(newName.value)">Change Name</button>
+  <div class="form-group">
+    <label for="newName">New Name</label>
+    <input
+      type="text"
+      id="newName"
+      #newName
+      placeholder="Enter your new name"
+    />
   </div>
+
+  <button class="submit-btn" (click)="changeName(newName.value)">Change Name</button>
 </div>
 
